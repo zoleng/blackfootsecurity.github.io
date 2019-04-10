@@ -1,0 +1,15 @@
+Writeup:
+  name: writeup
+  displayname: Writeups
+  description: Our writeups on various cybersecurity challenges
+  cover: False
+CTF:
+  name: ctf
+  displayname: Capture the Flag
+  description: Every post related to Capture The Flag competitions
+  cover: False
+Crypto:
+  name: crypto
+  displayname: Cryptography
+  description: Encryption, decryption and everything in between
+  cover: False
