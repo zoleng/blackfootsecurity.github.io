@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>Blackfoot's Cybersecurity Specialists</description>
+    <link>
+    </link>
+    
+      
+      <item>
+        <title>We Three Keys Writeup</title>
+        
+          <description>&lt;p&gt;We Three Keys was a fairly straightforward crypto challenge which required a bit of thinking, but was slightly disappointing in the end.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 24 Mar 2019 18:10:00 +0000</pubDate>
+        <link>
+        /we-three-keys</link>
+        <guid isPermaLink="true">/we-three-keys</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Securinets2019 Maze</title>
+        
+          <description>&lt;p&gt;We recently participated in the Securinets qualifying CTF, where we placed 7th out of a few hundred teams. Maze was a fun cryptography challenge which wasn’t all that challenging once i figured out what I had to do.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 24 Mar 2019 18:10:00 +0000</pubDate>
+        <link>
+        /securinets-maze</link>
+        <guid isPermaLink="true">/securinets-maze</guid>
+      </item>
+      
+    
+  </channel>
+</rss>

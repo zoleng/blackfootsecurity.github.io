@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Securinets2019 Maze</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta
+  name="description"
+  content="Blackfoot's Cybersecurity Specialists"
+/>
+<link
+  rel="shortcut icon"
+  href="/assets/images/favicon.png"
+  type="image/png"
+/>
+<link
+  rel="canonical"
+  href="/securinets-maze"
+/>
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+
+<!--title below is coming from _includes/dynamic_title-->
+<meta property="og:site_name" content="Blackfoot Security" />
+<meta property="og:type" content="website" />
+<meta
+  property="og:title"
+  content="Securinets2019 Maze"
+/>
+<meta
+  property="og:description"
+  content="We recently participated in the Securinets qualifying CTF, where we placed 7th out of a few hundred teams. Maze was a fun cryptography challenge which wasn’t all that challenging once i figured out what I had to do. The challenge Original data We’re given, in a zip file: A cipher.txt"
+/>
+<meta
+  property="og:url"
+  content="/securinets-maze"
+/>
+<meta
+  property="og:image"
+  content="/assets/images/blog-icon.png"
+/>
+<meta
+  property="article:publisher"
+  content="https://www.facebook.com/blackfootmt"
+/>
+<meta
+  property="article:author"
+  content="https://www.facebook.com/blackfootmt"
+/>
+<meta
+  property="article:published_time"
+  content="2019-03-24T18:10:00+00:00"
+/>
+<meta
+  property="article:modified_time"
+  content="2019-03-24T18:10:00+00:00"
+/>
+<meta
+  property="article:tag"
+  content="Writeup"
+/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  name="twitter:title"
+  content="Securinets2019 Maze"
+/>
+<meta
+  name="twitter:description"
+  content="We recently participated in the Securinets qualifying CTF, where we placed 7th out of a few hundred teams. Maze was a fun cryptography challenge which wasn’t all that challenging once i figured out what I had to do. The challenge Original data We’re given, in a zip file: A cipher.txt"
+/>
+<meta name="twitter:url" content="/" />
+<meta
+  name="twitter:image"
+  content="/assets/images/blog-icon.png"
+/>
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Blackfoot Security" />
+<meta name="twitter:label2" content="Filed under" />
+<meta
+  name="twitter:data2"
+  content="Writeup"
+/>
+<meta name="twitter:site" content="@BlackfootMT" />
+<meta name="twitter:creator" content="@BlackfootMT" />
+<meta property="og:image:width" content="1400" />
+<meta property="og:image:height" content="933" />
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Blackfoot Security",
+      "logo": "/assets/images/blog-icon.png"
+    },
+    "url": "/securinets-maze",
+    "image": {
+      "@type": "ImageObject",
+      "url": "/assets/images/blog-icon.png",
+      "width": 2000,
+      "height": 666
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/securinets-maze"
+    },
+    "description": "We recently participated in the Securinets qualifying CTF, where we placed 7th out of a few hundred teams. Maze was a fun cryptography challenge which wasn’t all that challenging once i figured out what I had to do. The challenge Original data We’re given, in a zip file: A cipher.txt"
+  }
+</script>
+
+<!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+<meta name="generator" content="Jekyll 3.6.2" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="Securinets2019 Maze"
+  href="/feed.xml"
+/>
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="/"><img src="/assets/images/blog-icon.png" alt="Blackfoot Security" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+  <li class="nav-getting-started" role="menuitem">
+    <a href="/tag/writeup/">Writeups</a>
+  </li>
+  <li class="nav-about" role="menuitem">
+    <a href="/about/">About</a>
+  </li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+                <a class="social-link social-link-fb" href="https://facebook.com/blackfootmt" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/BlackfootMT" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post tag-crypto tag-ctf ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="24 March 2019">24 March 2019</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/writeup/'>WRITEUP</a>,
+                            
+                        
+                            
+                               <a href='/tag/ctf/'>CTF</a>,
+                            
+                        
+                            
+                               <a href='/tag/crypto/'>CRYPTO</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Securinets2019 Maze</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/securinets.jpg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>We recently participated in the Securinets qualifying CTF, where we placed 7th out of a few hundred teams. Maze was a fun cryptography challenge which wasn’t all that challenging once i figured out what I had to do.</p>
+
+<h1 id="the-challenge">The challenge</h1>
+
+<h2 id="original-data">Original data</h2>
+
+<p>We’re given, in a zip file:</p>
+
+<ul>
+  <li>A <code class="highlighter-rouge">cipher.txt</code> file which contains a big number (the cipher, supposedly)</li>
+  <li>101 public keys</li>
+</ul>
+
+<p>And that’s it, we have to decipher it. Oof, that’s not a whole lot of information.</p>
+
+<h2 id="examining-the-data">Examining the data</h2>
+
+<p>I decided to look at the modulus and exponents in each file, moved all the decoded files to a <code class="highlighter-rouge">clear/</code> folder with this command:
+<code class="highlighter-rouge">for file in pub*; do openssl rsa -pubin -inform PEM -text -noout &lt; $file &gt; "./clear/$file"; done</code></p>
+
+<p>Ok so now I have 101 files that look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RSA Public-Key: (2048 bit)
+Modulus:
+    00:dd:a2:f9:b5:2c:68:3f:35:bc:41:da:f5:26:b2:
+    49:6e:da:c0:59:ed:04:90:71:49:a9:71:8c:33:72:
+    71:50:64:20:7e:24:fa:b0:6c:33:d0:eb:c2:5a:d5:
+    4f:fa:48:e7:cf:e1:5f:54:b5:97:1a:0f:f0:be:3d:
+    0d:a8:b1:10:0a:d1:77:88:87:a1:9c:9e:29:49:bd:
+    5f:82:4f:b2:1f:4d:68:85:c8:14:52:6f:27:23:f5:
+    56:ce:29:b3:06:bf:59:bd:43:cc:a1:1d:ea:fe:20:
+    d0:db:b8:46:ce:ed:18:44:09:74:cd:8b:f4:94:5d:
+    f1:fb:5c:01:f7:91:ac:63:1a:19:b2:8d:d1:67:2a:
+    cd:ea:08:ce:7d:e9:65:e9:95:bb:06:3c:61:38:15:
+    98:f9:3f:81:6e:dc:b6:26:8e:e5:a2:92:43:a0:3b:
+    e7:39:74:60:b2:3a:74:44:eb:00:fc:42:00:bc:95:
+    d1:17:d9:30:a3:13:1c:fa:8d:95:22:60:a1:bc:bb:
+    46:af:4c:52:a6:7c:5c:df:d3:4b:09:66:c8:d6:9f:
+    82:0f:4f:25:bd:e5:04:46:b4:c8:c0:70:8c:2a:39:
+    3a:04:67:d4:e3:51:b6:66:2d:46:25:99:54:a2:5e:
+    21:2a:44:65:be:a7:ed:a9:f9:51:1c:b1:f4:69:c4:
+    e7:29
+Exponent: 65537 (0x10001)
+</code></pre></div></div>
+
+<p>I wasted <em>way</em> too much time establishing these few basic facts:</p>
+
+<ul>
+  <li>Every file has a different modulus</li>
+  <li>Every file has the same exponent</li>
+</ul>
+
+<h1 id="the-rsa-cryptosystem">The RSA Cryptosystem</h1>
+
+<p>If you’re familiar with RSA you can skip this entire section, I’ll simply remind everyone how RSA works so every reader can follow along.</p>
+
+<p>RSA is made up of a public key (2 numbers, really) and a private key (1 number). You share the public key with everyone, and they can use it to encrypt messages meant for you and only you. From there, only the holder of the private key (you) can decrypt the message.</p>
+
+<h2 id="maths">Maths</h2>
+
+<p>RSA’s security is based on a single fact: it’s very very hard, given a multiplication result, to find which numbers were used to make it, especially if both numbers were prime (so there’s a single multiplication possible). Here’s how you generate a public and private key pair:</p>
+
+<ul>
+  <li>Generate two large prime numbers <code class="highlighter-rouge">p</code> and <code class="highlighter-rouge">q</code></li>
+  <li>Multiply them, giving n: <code class="highlighter-rouge">p * q = n</code>. <code class="highlighter-rouge">n</code> is called the modulus for reasons that wil become obvious later.</li>
+  <li>Calculate <code class="highlighter-rouge">λ(n)</code>, which is <code class="highlighter-rouge">lcm(p-1, q-1)</code> where <code class="highlighter-rouge">lcm</code> is the least common multiple.</li>
+  <li>Choose an integer <code class="highlighter-rouge">e</code> so that <code class="highlighter-rouge">1 &lt; e &lt; λ(n)</code> and so that <code class="highlighter-rouge">e</code> and <code class="highlighter-rouge">λ(n)</code> are coprime. <code class="highlighter-rouge">e</code> is usually simply <code class="highlighter-rouge">65537</code>.</li>
+  <li>Find the <strong>modular multiplicative inverse</strong> of <code class="highlighter-rouge">e</code> by <code class="highlighter-rouge">λ(n)</code>, so find <code class="highlighter-rouge">d</code> so that: <code class="highlighter-rouge">e * d % λ(n) = 1</code></li>
+</ul>
+
+<p>And that’s it, <code class="highlighter-rouge">d</code> is now the private key, <code class="highlighter-rouge">n</code> and <code class="highlighter-rouge">e</code> make up the public key. Now you can take any plaintext message M and generate a ciphertext with:
+<code class="highlighter-rouge">C = (M^e) % d</code></p>
+
+<p>Why? Simply because you can then decrypt the message with <code class="highlighter-rouge">C^d % n</code>, which gives you the plaintext again. If you’d like to know how that works precisely, <a href="http://doctrina.org/How-RSA-Works-With-Examples.html">here’s a good article on it</a>.</p>
+
+<p>Anyway the important part is that the public key is <code class="highlighter-rouge">(e, n)</code> where <code class="highlighter-rouge">n = pq</code>, and finding <code class="highlighter-rouge">p</code> and <code class="highlighter-rouge">q</code> from <code class="highlighter-rouge">n</code> is basically impossible. And that’s good because once you have <code class="highlighter-rouge">p</code>, <code class="highlighter-rouge">q</code> and <code class="highlighter-rouge">e</code>, you can deduce <code class="highlighter-rouge">d</code> and you now have the private key</p>
+
+<h1 id="solving">Solving</h1>
+
+<h2 id="options-options-options">Options, options, options</h2>
+
+<p>So I had to figure out what was up with all these files. I had a few possibilities to explore:</p>
+
+<ul>
+  <li>All of these were all public keys derivated from the same private key and I had to somehow find the private key from all these files</li>
+  <li>The ciphertext had been encrypted using all of these public keys</li>
+  <li>A single one of those keys was used to encrypt the plaintext and I somehow have to find which one</li>
+</ul>
+
+<p>Option #1 was basically impossible, and wouldn’t have helped me anyway. I was pretty set on option #2 but before doing my script I decided to ask an admin since the math involved might lose me a lot of time. He told me I was on the wrong track. So… It has to be #3.</p>
+
+<h2 id="common-factor-attack">Common factor attack</h2>
+
+<p>I hadn’t known of Common Factor Attack before this chall, I don’t know how I didn’t! It’s really powerful, though not very applicable to real-world keys. The idea is that if you have a bunch of keys that were generated by the same source, that was using really bad values for its prime generation for <code class="highlighter-rouge">p</code> and <code class="highlighter-rouge">q</code>, then there’s a chance both keys have <strong>one of those prime numbers in common</strong>. And that’s really good news because we can calculate <code class="highlighter-rouge">gcd</code> (greatest common divisor) between large integers very fast, which will let us find <code class="highlighter-rouge">p</code> values! So, first of all, write a sagemath script that reads all of the modulus and puts them in a file:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">cipher</span> <span class="o">=</span> <span class="p">[</span><span class="n">large</span> <span class="n">number</span><span class="p">,</span> <span class="n">redacted</span><span class="p">]</span>
+<span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"pub{}.pem"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="s">'r'</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">hexa</span> <span class="o">=</span> <span class="s">''</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">hexa</span> <span class="o">+=</span> <span class="n">part</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">":"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">hexa</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">cipher</span> <span class="o">&lt;</span> <span class="n">val</span><span class="p">:</span>
+        <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+<span class="c"># vals now contains all modulus</span>
+</code></pre></div></div>
+
+<p>Ok cool, now to check if 2 modulus have common factors:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Find keys that share common factors</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">valX</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="n">valY</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="n">valX</span><span class="p">,</span> <span class="n">valY</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">g</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"{} and {} share a common factor: {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">g</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>And the output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>38 and 44 share a common factor: 1687364...691
+</code></pre></div></div>
+
+<p>Boom! Now we have a <code class="highlighter-rouge">p</code> value, we can compute <code class="highlighter-rouge">q</code> for both moduli and that’s it, we’ve broken both private keys. All we need now is to decipher the ciphertext with both private keys and see which of the two make sense:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="mf">1687364.</span><span class="o">..</span><span class="mi">91</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">38</span><span class="p">,</span> <span class="mi">44</span><span class="p">]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c"># Find q</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="n">p</span>
+    <span class="c"># Comute Lambda(n):</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">lcm</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c"># Compute d</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">inverse_mod</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+    <span class="c"># Calculate (cipher^d) % n</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">IntegerModRing</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">R</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span>
+    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">plaintext</span> <span class="o">^</span> <span class="n">d</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">Integer</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>One of the two outputted values looks a LOT like ASCII, so I convert it and:
+<code class="highlighter-rouge">securinets{rs4_1s_g00d_s0m3t1m3s!}</code></p>
+
+<p>That’s it!</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/navenn_t.jpg" alt="atomheartother" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/atomheartother">Thomas Navennec</a></h4>
+                                
+                                    <p>Software developer and chill hacker for Blackfoot</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/atomheartother">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            style="background-image: url(/assets/images/blog-cover.jpg)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; Blackfoot Security &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/writeup/">Writeup</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/we-three-keys">We Three Keys Writeup</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/writeup/">
+                                
+                                    See all 1 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/we-three-keys">
+                <div class="post-card-image" style="background-image: url(/assets/images/swampctf.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/we-three-keys">
+                <header class="post-card-header">
+                    
+                        
+                            
+                               <span class="post-card-tags">Writeup</span>
+                            
+                        
+                            
+                               <span class="post-card-tags">Ctf</span>
+                            
+                        
+                            
+                                <span class="post-card-tags">Crypto</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">We Three Keys Writeup</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/navenn_t.jpg" alt="Thomas Navennec" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/atomheartother/">Thomas Navennec</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+                <img src="/assets/images/favicon.png" alt="Blackfoot Security icon" />
+            
+            <span>Blackfoot Security</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Securinets2019 Maze</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Securinets2019+Maze&amp;url=https://blackfootsecurity.github.io/securinets-maze"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blackfootsecurity.github.io/securinets-maze"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Blackfoot Security</a> &copy; 2019</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/blackfootmt" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/BlackfootMT" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101424168-2', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
