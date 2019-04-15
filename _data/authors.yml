@@ -9,3 +9,14 @@ atomheartother:
   facebook: False
   twitter: atomheartother
   cover: False
+sakiir:
+  username: SakiiR
+  name: SakiiR
+  location: Paris, France
+  url: SakiiR
+  url_full: http://sakiir.ovh
+  bio: Professional Pentester and CTFer @ Hexpresso and Blackfoot Security
+  picture: assets/images/sakiir.jpg
+  facebook: False
+  twitter: sakiirsecurity
+  cover: False
