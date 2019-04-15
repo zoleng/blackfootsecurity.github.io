@@ -8,7 +8,7 @@ date: 2019-03-24 18:10:00
 tags: Writeup CTF Pwn Cpp Exploit
 class: post-template
 subclass: "post tag-pwn tag-ctf"
-author: sakiir
+author: SakiiR
 ---
 
 Blackfoot Security went to the Securinets CTF Final event @ Tunis the April 14 2019.
