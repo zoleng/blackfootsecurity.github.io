@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Securinets 2019 Final - Virtual Pwn challenge</title>
+        
+          <description>&lt;p&gt;Blackfoot Security went to the Securinets CTF Final event @ Tunis the April 14 2019.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 24 Mar 2019 18:10:00 +0000</pubDate>
+        <link>
+        /securinets-final-virtual</link>
+        <guid isPermaLink="true">/securinets-final-virtual</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>We Three Keys Writeup</title>
         
           <description>&lt;p&gt;We Three Keys was a fairly straightforward crypto challenge which required a bit of thinking, but was slightly disappointing in the end.&lt;/p&gt;

